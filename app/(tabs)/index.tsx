@@ -39,6 +39,27 @@ export default function Index(){
         ) : (
           <View className="flex-1 mt-5">
             <SearchBar onPress={() => { router.push('/search') }} placeholder="dhundh lo" />
+            {trendingMovies && (
+              <View className="mt-10">
+                <Text className="text-lg text-white font-bold mb-3">
+                  Trending Movies
+                </Text>
+                <FlatList
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  className="mb-4 mt-3"
+                  data={trendingMovies}
+                  // contentContainerStyle={{
+                  //   gap: 26,
+                  // }}
+                  renderItem={({ item, index }) => (
+                    <Text className="text-white">{item.title}</Text>
+                  )}
+                  keyExtractor={(item) => item.movie_id.toString()}
+                  ItemSeparatorComponent={() => <View className="w-4" />}
+                />
+              </View>
+            )}
             <>
               <Text className="text-lg text-white font-bold mt-5">Latest movies</Text>
               <FlatList
