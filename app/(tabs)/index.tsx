@@ -9,6 +9,7 @@ import useFetch from "@/services/useFetch";
 import { fetchmovies } from "@/services/api";
 import MovieCard from "@/components/MovieCard";
 import { gettrendingmovies } from "@/services/appwrite";
+import TrendingCard from "@/components/trendingMovieCard";
 
 export default function Index(){
 
@@ -53,7 +54,7 @@ export default function Index(){
                   //   gap: 26,
                   // }}
                   renderItem={({ item, index }) => (
-                    <Text className="text-white">{item.title}</Text>
+                    <TrendingCard movie={item} index={index}/>
                   )}
                   keyExtractor={(item) => item.movie_id.toString()}
                   ItemSeparatorComponent={() => <View className="w-4" />}
