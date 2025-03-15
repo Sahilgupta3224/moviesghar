@@ -5,6 +5,7 @@ import { account } from "@/services/appwrite";
 interface User {
   $id: string;
   email: string;
+  Name:string;
 }
 
 interface UserContextType {
@@ -27,7 +28,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
     try {
       const loggedIn = await account.createEmailPasswordSession(email, password);
       console.log("loggedin", loggedIn)
-      setUser(loggedIn as unknown as User);
+      setUser({$id:loggedIn.$id,email:loggedIn.providerUid,Name:loggedIn.name});
       console.log("Welcome back. You are logged in");
     }
     catch (e) {
@@ -36,6 +37,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
   }
 
   async function logout() {
+    console.log("hhhhh")
     await account.deleteSession("current");
     setUser(null);
     console.log("Logged out");
@@ -56,7 +58,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
     try {
       const loggedIn = await account.get();
       console.log("Logged-in User Data:", loggedIn);
-      setUser(loggedIn);
+      setUser({$id:loggedIn.$id,email:loggedIn.email,Name:loggedIn.name});
       console.log("Welcome back. You are logged in");
     } catch (err) {
       setUser(null);
