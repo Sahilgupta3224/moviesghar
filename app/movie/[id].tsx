@@ -5,6 +5,7 @@ import {
   ActivityIndicator,
   ScrollView,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -12,6 +13,9 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { icons } from "@/constants/icons";
 import useFetch from "@/services/useFetch";
 import { fetchmoviedetails } from "@/services/api";
+import { savemovie } from "@/services/appwrite";
+import { useUser } from "@/services/AuthContext";
+import { useState } from "react";
 
 interface MovieInfoProps {
   label: string;
@@ -28,6 +32,7 @@ const MovieInfo = ({ label, value }: MovieInfoProps) => (
 );
 
 const Details = () => {
+  const user = useUser();
   const router = useRouter();
   const { id } = useLocalSearchParams();
 
@@ -35,12 +40,34 @@ const Details = () => {
     fetchmoviedetails(id as string)
   );
 
+  const [save,setsave] = useState(true);
   if (loading)
     return (
       <SafeAreaView className="bg-primary flex-1">
         <ActivityIndicator />
       </SafeAreaView>
     );
+
+    const handlesavemovie = async(movie:MovieDetails)=>{
+      try{
+        if(user?.current?.$id){
+          const res = await savemovie(movie,user?.current?.$id!)
+          if(res==true){
+            alert('movie has been saved successfully');
+          }
+          else if(res==false){
+            setsave(false)
+            alert('movie already saved');
+          }
+        }
+        else{
+          alert('you must login !');
+        }
+      }
+      catch(e){
+        console.log(e)
+      }
+    }
 
   return (
     <View className="bg-primary flex-1">
@@ -112,6 +139,12 @@ const Details = () => {
           />
         </View>
       </ScrollView>
+      <TouchableOpacity
+        className="absolute bottom-5 left-0 right-0 mx-5 bg-accent rounded-lg py-3.5 flex flex-row items-center justify-center z-50"
+        onPress={()=>handlesavemovie(movie!)}
+      >
+        <Text className="text-white font-semibold text-base">Save Movie</Text>
+      </TouchableOpacity>
     </View>
   );
 };
