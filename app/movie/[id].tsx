@@ -51,7 +51,7 @@ const Details = () => {
     };
     
     checkIfSaved();
-  }, [id, user?.current?.$id]);
+  }, [id, user]);
 
   if (loading)
     return (

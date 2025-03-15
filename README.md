@@ -1,6 +1,23 @@
-# Welcome to your Expo app 👋
+# Welcome to Moviesghar app 👋
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+This is an [Expo](https://expo.dev) project that helps you to search for movies and view their results (rating,plot,cast,Genre,Budget and many other things). You can also authenticate yourself and save the movies.
+
+## Tech Stack Used
+
+- React Native
+- Expo
+- Appwrite
+- NativeWind
+- TMDB API
+
+## Screenshots
+
+![Image](https://github.com/user-attachments/assets/b795246c-9a3d-4c1d-9f6e-afc077599116)
+![Image](https://github.com/user-attachments/assets/033121b8-6447-46a9-96de-4993bb920f4e)
+![Image](https://github.com/user-attachments/assets/3dd21341-ad73-4644-a146-fc4fb8f40147)
+![Image](https://github.com/user-attachments/assets/c17de95d-e7ab-4802-a026-f760d3c3593c)
+![Image](https://github.com/user-attachments/assets/9c0ce5b1-1404-4108-919d-7d67a4c3d3ec)
+![Image](https://github.com/user-attachments/assets/1854b8ed-0320-4fda-bdd9-1dc8496ffe6d)
 
 ## Get started
 

@@ -39,7 +39,7 @@ export default function Index(){
           <Text className="text-white">Error: {moviesError?.message || trendingError?.message}</Text>
         ) : (
           <View className="flex-1 mt-5">
-            <SearchBar onPress={() => { router.push('/search') }} placeholder="dhundh lo" />
+            <SearchBar onPress={() => { router.push('/search') }} placeholder="Search for Movies" />
             {trendingMovies && (
               <View className="mt-10">
                 <Text className="text-lg text-white font-bold mb-3">
