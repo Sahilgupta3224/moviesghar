@@ -13,9 +13,9 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { icons } from "@/constants/icons";
 import useFetch from "@/services/useFetch";
 import { fetchmoviedetails } from "@/services/api";
-import { savemovie } from "@/services/appwrite";
+import { savemovie,getsavedmovies } from "@/services/appwrite";
 import { useUser } from "@/services/AuthContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface MovieInfoProps {
   label: string;
@@ -40,7 +40,19 @@ const Details = () => {
     fetchmoviedetails(id as string)
   );
 
-  const [save,setsave] = useState(true);
+  const [saved,setsaved] = useState(false);
+
+  useEffect(() => {
+    const checkIfSaved = async () => {
+      if (!user?.current?.$id) return;
+      const savedMovies = await getsavedmovies(user.current.$id);
+      const isSaved = savedMovies?.some((m) => m.movie_id.toString() === id.toString());
+      setsaved(isSaved ?? false);
+    };
+    
+    checkIfSaved();
+  }, [id, user?.current?.$id]);
+
   if (loading)
     return (
       <SafeAreaView className="bg-primary flex-1">
@@ -53,12 +65,14 @@ const Details = () => {
         if(user?.current?.$id){
           const res = await savemovie(movie,user?.current?.$id!)
           if(res==true){
+            setsaved(true)
             alert('movie has been saved successfully');
           }
           else if(res==false){
-            setsave(false)
-            alert('movie already saved');
+            setsaved(false)
+            alert('movie has been removed from saved movies');
           }
+          user.setchange((f)=>!(f))
         }
         else{
           alert('you must login !');
@@ -143,7 +157,11 @@ const Details = () => {
         className="absolute bottom-5 left-0 right-0 mx-5 bg-accent rounded-lg py-3.5 flex flex-row items-center justify-center z-50"
         onPress={()=>handlesavemovie(movie!)}
       >
-        <Text className="text-white font-semibold text-base">Save Movie</Text>
+        <Text className="text-white font-semibold text-base">
+          {saved
+          ?"UnSave Movie"
+          :"Save Movie"}
+          </Text>
       </TouchableOpacity>
     </View>
   );

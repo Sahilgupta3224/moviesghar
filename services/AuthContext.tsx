@@ -13,6 +13,8 @@ interface UserContextType {
   login: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
   register: (email: string, password: string, Name: string) => Promise<void>;
+  change: boolean;
+  setchange: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const UserContext = createContext<UserContextType | null>(null);
@@ -22,6 +24,7 @@ export function useUser() {
 }
 
 export function UserProvider({ children }: { children: ReactNode }) {
+  const [change,setchange] = useState(false)
   const [user, setUser] = useState<User | null>(null);
 
   async function login(email: string, password: string) {
@@ -70,7 +73,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <UserContext.Provider value={{ current: user, login, logout, register }}>
+    <UserContext.Provider value={{ current: user, login, logout, register,change,setchange }}>
       {children}
     </UserContext.Provider>
   );

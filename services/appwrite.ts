@@ -64,6 +64,7 @@ export const savemovie = async(movie: MovieDetails,userId:string):Promise<Boolea
       Query.equal("movie_id", movie.id),
     ]);
     if(result.documents.length>0){
+      await database.deleteDocument(DATABASE_ID,SAVED_COLLECTION_ID,result.documents[0].$id)
       return false
     }
     else{

@@ -15,7 +15,13 @@ import SavedMovieCard from "@/components/SavedMovieCard";
 
 const saved = () => {
   const user = useUser()
-  const {data: savedMovies, loading:savedLoading, error: savedError} = useFetch(()=>getsavedmovies(user?.current?.$id!))
+  const {data: savedMovies,refetch,loading:savedLoading, error: savedError} = useFetch(()=>getsavedmovies(user?.current?.$id!))
+  useEffect(()=>{
+    const fun = async()=>{
+      await refetch()
+    }
+    fun()
+  },[user])
   console.log("savedmovies",savedMovies)
   return (
     <View className='flex-1 bg-primary'>
