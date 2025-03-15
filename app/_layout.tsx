@@ -1,10 +1,11 @@
 import { Stack } from "expo-router";
 import "./globals.css";
+import { UserProvider } from "@/services/AuthContext";
 import { StatusBar } from "react-native";
 
 export default function RootLayout() {
   return (
-    <>
+    <UserProvider>
       <StatusBar hidden={true} />
 
       <Stack>
@@ -21,6 +22,6 @@ export default function RootLayout() {
           }}
         />
       </Stack>
-    </>
+      </UserProvider>
   );
 }

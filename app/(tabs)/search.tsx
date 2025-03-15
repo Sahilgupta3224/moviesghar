@@ -36,10 +36,6 @@ const search = () => {
     }
   }, [movies]);
 
-//   useEffect(() => {
-//     updateSearchCount("Batman", movie);
-// }, []);
-
   const handleSearch = (text: string) => {
     setquery(text);
   };
