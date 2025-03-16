@@ -1,6 +1,6 @@
 # Welcome to Moviesghar app 👋
 
-This is an [Expo](https://expo.dev) project that helps you to search for movies and view their results (rating,plot,cast,Genre,Budget and many other things). You can also authenticate yourself and save the movies.
+This is an [Expo](https://expo.dev) project that helps you to search for movies and view their details (rating,plot,cast,genre,budget and many other things). You can also authenticate yourself and save the movies.
 
 ## Tech Stack Used
 
